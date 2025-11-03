@@ -4,9 +4,11 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
-import { ZiggyVue } from 'ziggy-js';
 import { initializeTheme } from './composables/useAppearance';
 import i18n from './i18n';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -29,7 +31,6 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
-            .use(ZiggyVue)
             .use(i18n)
             .mount(el);
     },
@@ -40,3 +41,4 @@ createInertiaApp({
 
 // This will set light / dark mode on page load...
 initializeTheme();
+AOS.init();
