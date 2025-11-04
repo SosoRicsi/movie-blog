@@ -1,65 +1,265 @@
-<script setup lang="ts">
-import Button from '@/components/ui/button/Button.vue';
-import { Head } from '@inertiajs/vue3';
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { ArrowRight, Play, ChevronDown, Users } from 'lucide-vue-next'
+import GuestLayout from '@/layouts/GuestLayout.vue'
+import { Project } from '@/types'
+import ProjectCard from '@/components/ProjectCard.vue'
+import BlogCard from '@/components/BlogCard.vue'
+import Button from '@/components/Button.vue'
+
+const projects = [
+    {
+        id: 1,
+        title: 'Éjszakai Fények',
+        category: {
+            title: 'Játékfilm',
+            id: 1,
+        },
+        status: {
+            title: 'Forgatás alatt',
+            color: 'text-blue-400',
+        },
+        image: {
+            url: 'https://placehold.co/800x600',
+            placeholder: 'Placeholder image'
+        },
+        description: 'Egy magányos detektív története a nagyvárosi éjszakában.'
+    },
+    {
+        id: 2,
+        title: 'Horizont',
+        category: {
+            title: 'Dokumentumfilm',
+            id: 2,
+        },
+        status: {
+            title: 'Utómunka',
+            color: 'text-green-400',
+        },
+        image: {
+            url: 'https://placehold.co/800x600',
+            placeholder: 'Placeholder image'
+        },
+        description: 'Utazás a Kárpátok legszebb tájain keresztül.'
+    },
+    {
+        id: 3,
+        title: 'Visszhang',
+        category: {
+            title: 'Rövidfilm',
+            id: 3,
+        },
+        status: {
+            title: 'Előkészítés',
+            color: 'text-orange-400',
+        },
+        image: {
+            url: 'https://placehold.co/800x600',
+            placeholder: 'Placeholder image'
+        },
+        description: 'Kísérleti film a hang és a csend kapcsolatáról.'
+    },
+] as Project[];
+const blogPosts = ref([
+    {
+        id: 1,
+        title: 'A modern filmkészítés kihívásai 2025-ben',
+        excerpt: 'Hogyan változtatja meg a mesterséges intelligencia és az új technológiák a filmipart?',
+        date: '2025. március 15.',
+        category: 'Technológia',
+        image: 'https://placehold.co/600x400',
+        readTime: '5 perc'
+    },
+    {
+        id: 2,
+        title: 'Kulisszák mögött: Éjszakai Fények forgatása',
+        excerpt: 'Betekintés a legújabb játékfilmünk készítésének folyamatába és a kreatív döntések mögé.',
+        date: '2025. március 10.',
+        category: 'Kulisszák mögött',
+        image: 'https://placehold.co/600x400',
+        readTime: '8 perc'
+    },
+    {
+        id: 3,
+        title: 'Interjú a rendezővel: Vízió és valóság',
+        excerpt: 'Beszélgetés a stúdió alapítójával a filmkészítés művészetéről és a jövő terveiről.',
+        date: '2025. március 5.',
+        category: 'Interjú',
+        image: 'https://placehold.co/600x400',
+        readTime: '10 perc'
+    }
+])
 </script>
 
 <template>
-    <Head title="Főoldal" />
-    <div class="min-h-screen bg-gray-50 py-6 flex flex-col justify-center sm:py-12">
-        <div class="relative py-3 sm:max-w-5xl sm:mx-auto">
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+    <GuestLayout>
+        <!-- hero -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+            <div class="absolute inset-0">
+                <img src="https://placehold.co/1920x1080" alt="Hero background"
+                    class="w-full h-full object-cover opacity-40" />
+                <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
             </div>
-            <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-                <div class="max-w-4xl mx-auto">
+
+            <div class="relative z-10 container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight text-balance"
+                    data-aos="zoom-in">
+                    Történeteket mesélünk,<br />mozgóképen keresztül
+                </h1>
+                <p class="text-lg md:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto text-pretty">
+                    Kreatív filmstúdió, amely a vizuális mesélés művészetét ötvözi a legmodernebb technológiával
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button :tilt="true" arrow="right">Projektek megtekintése</Button>
+                    <Button :icon="Play" theme="outline">Bemutatkozó videónk</Button>
+                </div>
+            </div>
+
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+                <ChevronDown :size="32" class="text-white/60" />
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projektek" class="py-12 bg-white min-h-screen flex items-center" data-aos="zoom-in">
+            <div class="container mx-auto px-6">
+                <div class="mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight"> Készülő filmjeink </h2>
+                    <p class="text-lg text-neutral-600 max-w-2xl text-pretty"> Jelenleg ezeken a projekteken dolgozunk.
+                        Minden film egy egyedi történet, amely megérdemli a figyelmet. </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <ProjectCard v-for="project in projects" :key="project.id" :project="project" />
+                </div>
+                <div class="py-10 flex flex-col sm:flex-row gap-4 justify-center">
+                    <!-- <button
+                        class="bg-black text-white px-8 py-4 rounded-sm hover:bg-neutral-800 transition-colors font-medium flex items-center justify-center gap-2 animate-tilt">
+                        Összes projektünk
+                        <ArrowRight :size="20" />
+                    </button> -->
+                    <Button :tilt="true" arrow="right" theme="dark-outline">Összes projektünk</Button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About us -->
+        <section id="rolunk" class="py-24 bg-black text-white min-h-screen flex items-center">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div>
-                        <h1 class="text-3xl font-semibold text-gray-800">
-                            Üdvözli önt a <span class="underline decoration-from-font decoration-blue-600">FamilyManager</span>!
-                        </h1>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+                            Kreativitás és<br />technológia találkozása
+                        </h2>
+                        <p class="text-lg text-neutral-300 mb-6 leading-relaxed text-pretty">
+                            A <strong>Név ide</strong> egy szenvedélyes csapat, amely hisz abban, hogy minden történet
+                            megérdemli a legjobb vizuális megjelenítést. Filmjeinkben ötvözzük a hagyományos
+                            filmkészítés
+                            művészetét a legmodernebb technológiával.
+                        </p>
+                        <p class="text-lg text-neutral-300 mb-8 leading-relaxed text-pretty">
+                            Célunk, hogy olyan filmeket készítsünk, amelyek nemcsak szórakoztatnak, hanem gondolkodásra
+                            késztetnek és maradandó élményt nyújtanak a nézőknek.
+                        </p>
+
+                        <div class="grid grid-cols-3 gap-8 mb-8">
+                            <div>
+                                <div class="text-4xl font-bold text-emerald-400 mb-2">15+</div>
+                                <div class="text-sm text-neutral-400">Elkészült film</div>
+                            </div>
+                            <div>
+                                <div class="text-4xl font-bold text-emerald-400 mb-2">8</div>
+                                <div class="text-sm text-neutral-400">Díj</div>
+                            </div>
+                            <div>
+                                <div class="text-4xl font-bold text-emerald-400 mb-2">6</div>
+                                <div class="text-sm text-neutral-400">Folyamatban</div>
+                            </div>
+                        </div>
+
+                        <Button :icon="Users" :animate-icon="false">Csapatunk</Button>
                     </div>
-                    <div class="divide-y divide-gray-200 mt-6">
-                        <span class="p-0 m-0 text-gray-700">Családon belüli funkciók:</span>
-                        <div class="py-8 pt-3 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
 
-                            <div class="flex items-center space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" class="h-6 w-6 text-blue-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <span class="font-medium">
-                                    <p variant="ghost">naptár kezelés</p>
-                                </span>
-                            </div>
-
-                            <div class="flex items-center space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6 text-yellow-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2m-4 4h4m-2-4v8m-1.172 1.172a4.5 4.5 0 006.364 0m-6.364 0a4.5 4.5 0 016.364 0m-6.364-3.182v3.182" />
-                                </svg>
-                                <span class="font-medium">
-                                    <p variant="ghost">feladat kiosztás</p>
-                                </span>
-                            </div>
-
-                            <div class="flex items-center space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6 text-green-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
-                                </svg>
-                                <span class="font-medium">
-                                    <p variant="ghost">bevásárlólista megosztás</p>
-                                </span>
-                            </div>
-
-                            <div class="flex items-center space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6 text-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                                </svg>
-                                <span class="font-medium">
-                                    <p variant="ghost">recept megosztás</p>
-                                </span>
-                            </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <img src="https://placehold.co/300x400" alt="Stúdió"
+                                class="w-full h-64 object-cover rounded-sm" />
+                            <img src="https://placehold.co/300x400" alt="Forgatás"
+                                class="w-full h-48 object-cover rounded-sm" />
+                        </div>
+                        <div class="space-y-4 pt-8">
+                            <img src="https://placehold.co/300x400" alt="Eszközök"
+                                class="w-full h-48 object-cover rounded-sm" />
+                            <img src="https://placehold.co/300x400" alt="Utómunka"
+                                class="w-full h-64 object-cover rounded-sm" />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <!-- Blog -->
+        <section id="blog" class="py-24 bg-neutral-50 min-h-screen flex items-center">
+            <div class="container mx-auto px-6">
+                <div class="flex items-end justify-between mb-16">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight">
+                            Blog & Hírek
+                        </h2>
+                        <p class="text-lg text-neutral-600 max-w-2xl text-pretty">
+                            Legfrissebb híreink, kulisszatitkok és szakmai gondolatok a filmkészítés világából.
+                        </p>
+                    </div>
+                    <button class="hidden md:flex items-center gap-2 text-black hover:gap-3 transition-all">
+                        Összes bejegyzés
+                        <ArrowRight :size="20" />
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <BlogCard v-for="post in blogPosts" :key="post.id" :post="post" />
+                </div>
+
+                <div class="mt-12 text-center md:hidden">
+                    <button class="inline-flex items-center gap-2 text-black hover:gap-3 transition-all">
+                        Összes bejegyzés
+                        <ArrowRight :size="20" />
+                    </button>
+                </div>
+            </div>
+        </section>
+    </GuestLayout>
 </template>
+
+<style scoped>
+@keyframes tilt {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    10% {
+        transform: rotate(2deg);
+    }
+
+    20% {
+        transform: rotate(-2deg);
+    }
+
+    30% {
+        transform: rotate(1.5deg);
+    }
+
+    40% {
+        transform: rotate(-1.5deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+}
+
+.animate-tilt {
+    animation: tilt 6s ease-in-out infinite;
+}
+</style>

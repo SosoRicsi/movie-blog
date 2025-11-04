@@ -42,3 +42,22 @@ export interface User {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export type Project = {
+    image: {
+        url: string;
+        placeholder: string;
+    };
+    category: {
+        id: number;
+        title: string;
+    };
+    status: {
+        title: string;
+        color: string;
+        deleted: boolean;
+    };
+    id: number;
+    title: string;
+    description: string;
+};;
