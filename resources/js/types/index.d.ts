@@ -41,11 +41,17 @@ export interface User {
 
 export type BreadcrumbItemType = BreadcrumbItem;
 
+export type Image = {
+    url: string;
+    placeholder: string;
+    size?: {
+        width: number;
+        height: number;
+    } | null;
+}
+
 export type Project = {
-    image: {
-        url: string;
-        placeholder: string;
-    };
+    image: Image;
     category: {
         id: number;
         title: string;
@@ -58,4 +64,26 @@ export type Project = {
     id: number;
     title: string;
     description: string;
-};;
+};
+
+export type BlogPost = {
+    id: number;
+    title: string;
+    excerpt: string;
+    date: string;
+    category: {
+        id: number;
+        title: string;
+    };
+    image: Image;
+    read_time: number;
+    created_at: string;
+    updated_at: string;
+    user: {
+        id: number;
+        name: string;
+        email: string;
+        created_at: string;
+        avatar?: string;
+    };
+};
