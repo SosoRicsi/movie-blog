@@ -20,7 +20,7 @@ const title = computed(() => props.title ?? page.props.name)
             <nav class="container mx-auto px-6 py-4">
                 <div class="flex items-center justify-between">
                     <div class="text-white text-2xl font-bold tracking-tight">
-                        Név ide
+                        {{ page.props.name }}
                     </div>
 
                     <div class="hidden md:flex items-center gap-8">
@@ -58,7 +58,7 @@ const title = computed(() => props.title ?? page.props.name)
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div>
-                    <h3 class="text-2xl font-bold mb-6">Név ide</h3>
+                    <h3 class="text-2xl font-bold mb-6">{{ page.props.name }}</h3>
                     <p class="text-neutral-400 mb-6 leading-relaxed text-pretty">
                         Kreatív filmstúdió, amely történeteket mesél mozgóképen keresztül.
                     </p>
@@ -130,7 +130,7 @@ const title = computed(() => props.title ?? page.props.name)
             <div class="border-t border-white/10 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <p class="text-neutral-400 text-sm">
-                        © 2025 Név ide. Minden jog fenntartva.
+                        © 2025 {{ page.props.name }}. Minden jog fenntartva.
                     </p>
                     <div class="flex gap-6 text-sm">
                         <a href="#" class="text-neutral-400 hover:text-white transition-colors">Adatvédelem</a>

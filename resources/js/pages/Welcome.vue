@@ -2,93 +2,18 @@
 import { ref } from 'vue'
 import { ArrowRight, Play, ChevronDown, Users } from 'lucide-vue-next'
 import GuestLayout from '@/layouts/GuestLayout.vue'
-import { Project } from '@/types'
+import { BlogPost, Project, SharedData } from '@/types'
 import ProjectCard from '@/components/ProjectCard.vue'
 import BlogCard from '@/components/BlogCard.vue'
 import Button from '@/components/Button.vue'
+import { usePage } from '@inertiajs/vue3'
 
-const projects = [
-    {
-        id: 1,
-        title: 'Éjszakai Fények',
-        category: {
-            title: 'Játékfilm',
-            id: 1,
-        },
-        status: {
-            title: 'Forgatás alatt',
-            color: 'text-blue-400',
-        },
-        image: {
-            url: 'https://placehold.co/800x600',
-            placeholder: 'Placeholder image'
-        },
-        description: 'Egy magányos detektív története a nagyvárosi éjszakában.'
-    },
-    {
-        id: 2,
-        title: 'Horizont',
-        category: {
-            title: 'Dokumentumfilm',
-            id: 2,
-        },
-        status: {
-            title: 'Utómunka',
-            color: 'text-green-400',
-        },
-        image: {
-            url: 'https://placehold.co/800x600',
-            placeholder: 'Placeholder image'
-        },
-        description: 'Utazás a Kárpátok legszebb tájain keresztül.'
-    },
-    {
-        id: 3,
-        title: 'Visszhang',
-        category: {
-            title: 'Rövidfilm',
-            id: 3,
-        },
-        status: {
-            title: 'Előkészítés',
-            color: 'text-orange-400',
-        },
-        image: {
-            url: 'https://placehold.co/800x600',
-            placeholder: 'Placeholder image'
-        },
-        description: 'Kísérleti film a hang és a csend kapcsolatáról.'
-    },
-] as Project[];
-const blogPosts = ref([
-    {
-        id: 1,
-        title: 'A modern filmkészítés kihívásai 2025-ben',
-        excerpt: 'Hogyan változtatja meg a mesterséges intelligencia és az új technológiák a filmipart?',
-        date: '2025. március 15.',
-        category: 'Technológia',
-        image: 'https://placehold.co/600x400',
-        readTime: '5 perc'
-    },
-    {
-        id: 2,
-        title: 'Kulisszák mögött: Éjszakai Fények forgatása',
-        excerpt: 'Betekintés a legújabb játékfilmünk készítésének folyamatába és a kreatív döntések mögé.',
-        date: '2025. március 10.',
-        category: 'Kulisszák mögött',
-        image: 'https://placehold.co/600x400',
-        readTime: '8 perc'
-    },
-    {
-        id: 3,
-        title: 'Interjú a rendezővel: Vízió és valóság',
-        excerpt: 'Beszélgetés a stúdió alapítójával a filmkészítés művészetéről és a jövő terveiről.',
-        date: '2025. március 5.',
-        category: 'Interjú',
-        image: 'https://placehold.co/600x400',
-        readTime: '10 perc'
-    }
-])
+const props = defineProps<{
+    projects: Project[];
+    blog_posts: BlogPost[];
+}>();
+
+const page = usePage<SharedData>();
 </script>
 
 <template>
@@ -129,14 +54,9 @@ const blogPosts = ref([
                         Minden film egy egyedi történet, amely megérdemli a figyelmet. </p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <ProjectCard v-for="project in projects" :key="project.id" :project="project" />
+                    <ProjectCard v-for="project in props.projects" :key="project.id" :project="project" />
                 </div>
                 <div class="py-10 flex flex-col sm:flex-row gap-4 justify-center">
-                    <!-- <button
-                        class="bg-black text-white px-8 py-4 rounded-sm hover:bg-neutral-800 transition-colors font-medium flex items-center justify-center gap-2 animate-tilt">
-                        Összes projektünk
-                        <ArrowRight :size="20" />
-                    </button> -->
                     <Button :tilt="true" arrow="right" theme="dark-outline">Összes projektünk</Button>
                 </div>
             </div>
@@ -151,7 +71,7 @@ const blogPosts = ref([
                             Kreativitás és<br />technológia találkozása
                         </h2>
                         <p class="text-lg text-neutral-300 mb-6 leading-relaxed text-pretty">
-                            A <strong>Név ide</strong> egy szenvedélyes csapat, amely hisz abban, hogy minden történet
+                            A <strong>{{ page.props.name }}</strong> egy szenvedélyes csapat, amely hisz abban, hogy minden történet
                             megérdemli a legjobb vizuális megjelenítést. Filmjeinkben ötvözzük a hagyományos
                             filmkészítés
                             művészetét a legmodernebb technológiával.
@@ -216,7 +136,7 @@ const blogPosts = ref([
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <BlogCard v-for="post in blogPosts" :key="post.id" :post="post" />
+                    <BlogCard v-for="post in props.blog_posts" :key="post.id" :post="post" />
                 </div>
 
                 <div class="mt-12 text-center md:hidden">
