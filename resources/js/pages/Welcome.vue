@@ -71,11 +71,14 @@ const page = usePage<SharedData>();
                             Kreativitás és<br />technológia találkozása
                         </h2>
                         <p class="text-lg text-neutral-300 mb-6 leading-relaxed text-pretty">
-                            A <strong>{{ page.props.name }}</strong> egy szenvedélyes csapat, amely hisz abban, hogy minden történet
-                            megérdemli a legjobb vizuális megjelenítést. Filmjeinkben ötvözzük a hagyományos
-                            filmkészítés
-                            művészetét a legmodernebb technológiával.
+                            A
+                            <span class="text-blue-400 inline-block animate-tilt">
+                                {{ page.props.name }}
+                            </span>
+                            egy szenvedélyes csapat, amely hisz abban, hogy minden történet
+                            megérdemli a legjobb vizuális megjelenítést...
                         </p>
+
                         <p class="text-lg text-neutral-300 mb-8 leading-relaxed text-pretty">
                             Célunk, hogy olyan filmeket készítsünk, amelyek nemcsak szórakoztatnak, hanem gondolkodásra
                             késztetnek és maradandó élményt nyújtanak a nézőknek.
@@ -83,15 +86,15 @@ const page = usePage<SharedData>();
 
                         <div class="grid grid-cols-3 gap-8 mb-8">
                             <div>
-                                <div class="text-4xl font-bold text-emerald-400 mb-2">15+</div>
+                                <div class="text-4xl font-bold text-blue-400 mb-2">15+</div>
                                 <div class="text-sm text-neutral-400">Elkészült film</div>
                             </div>
                             <div>
-                                <div class="text-4xl font-bold text-emerald-400 mb-2">8</div>
+                                <div class="text-4xl font-bold text-blue-400 mb-2">8</div>
                                 <div class="text-sm text-neutral-400">Díj</div>
                             </div>
                             <div>
-                                <div class="text-4xl font-bold text-emerald-400 mb-2">6</div>
+                                <div class="text-4xl font-bold text-blue-400 mb-2">6</div>
                                 <div class="text-sm text-neutral-400">Folyamatban</div>
                             </div>
                         </div>

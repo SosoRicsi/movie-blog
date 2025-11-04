@@ -17,7 +17,7 @@ const props = defineProps<{
 
         <div class="p-6">
             <div class="flex items-center gap-3 mb-4 text-sm">
-                <span class="text-emerald-600 font-medium">{{ post.category.title }}</span>
+                <span class="text-blue-400 font-medium">{{ post.category.title }}</span>
                 <span class="text-neutral-400">•</span>
                 <span class="text-neutral-500 flex items-center gap-1">
                     <Calendar :size="14" />
@@ -30,7 +30,7 @@ const props = defineProps<{
                 </span>
             </div>
 
-            <h3 class="text-xl font-bold text-black mb-3 group-hover:text-emerald-600 transition-colors text-balance cursor-pointer">
+            <h3 class="text-xl font-bold text-black mb-3 group-hover:text-blue-400 transition-colors text-balance cursor-pointer">
                 {{ post.title }}
             </h3>
 
