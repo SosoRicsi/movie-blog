@@ -41,37 +41,3 @@ const props = withDefaults(defineProps<{
         </span>
     </button>
 </template>
-
-<style scoped>
-@keyframes tilt {
-
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-
-    10% {
-        transform: rotate(2deg);
-    }
-
-    20% {
-        transform: rotate(-2deg);
-    }
-
-    30% {
-        transform: rotate(1.5deg);
-    }
-
-    40% {
-        transform: rotate(-1.5deg);
-    }
-
-    50% {
-        transform: rotate(0deg);
-    }
-}
-
-.animate-tilt {
-    animation: tilt 6s ease-in-out infinite;
-}
-</style>
