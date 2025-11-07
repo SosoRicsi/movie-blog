@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\{CutCodes, FilmLanguages, MasterTypes, FilmStatus};
 use App\Models\Film;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,10 +20,9 @@ return new class extends Migration
             $table->string('slug', 200)->unique();
             $table->unsignedSmallInteger('year');
 
-            /* TODO: extract this to it's own Enum class */
-            $table->enum('status', ['developing', 'production', 'post', 'released', 'festival']);
+            $table->enum('status', FilmStatus::cases());
             $table->unsignedSmallInteger('duration_minutes')->nullable();
-            $table->decimal('avarage_rating', 3, 1)->default(0.0);
+            $table->decimal('average_rating', 3, 1)->default(0.0);
 
             $table->string('poster_path', 2048)->nullable();
             $table->string('cover_path', 2048); /* The cover is a must-have */
@@ -41,7 +41,7 @@ return new class extends Migration
             $table->foreignIdFor(Film::class)->constrained()->cascadeOnDelete();
 
             /* TODO: extract this to it's own Enum class */
-            $table->enum('locale', ['hu', 'en'])->default('hu');
+            $table->enum('locale', FilmLanguages::cases())->default('hu');
             $table->string('title', 180);
 
             $table->string('logline', 280)->nullable();
@@ -60,8 +60,8 @@ return new class extends Migration
             $table->string('name', 60);
             $table->unsignedSmallInteger('duration_minutes');
             $table->boolean('is_primary')->default(false);
-            $table->enum('master_type', ['prores', 'dcp', 'mp4']);
-            $table->enum('cut_code', ['festival', 'director', 'tv', 'airline', 'web', 'other'])->default('other');
+            $table->enum('master_type', MasterTypes::cases());
+            $table->enum('cut_code', CutCodes::cases())->default('other');
 
             $table->string('vimeo_private_link', 2048)->nullable();
             $table->string('vimeo_password', 100)->nullable();
