@@ -44,9 +44,10 @@ return new class extends Migration
             $table->string('bio_short');
             $table->text('bio');
             $table->date('birth_date');
-            $table->enum('type', PeopleType::cases())->default(PeopleType::OTHER);
+            /* $table->enum('type', array_map(fn ($e) => $e->value, PeopleType::cases()))->default(PeopleType::OTHER); */
+            $table->string('type', 50)->default(PeopleType::OTHER->value);
 
-            $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete(); /* Csak ha a type = crew -> akkor kötelezően van neki fiókja is */
+            $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();
@@ -80,9 +81,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
         Schema::dropIfExists('people');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('users');
     }
 };
