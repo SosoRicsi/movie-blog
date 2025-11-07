@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\FilmLanguages;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'avatar_path',
-        'locale'
+        'locale',
     ];
 
     /**
@@ -46,7 +47,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'locale' => 'enum'
+            'locale' => FilmLanguages::class,
         ];
+    }
+
+    public function getAvatarPathAttribute(?string $value): string
+    {
+        return $value ?? 'https://placehold.co/100x100?text=User';
     }
 }

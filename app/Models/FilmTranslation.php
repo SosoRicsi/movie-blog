@@ -25,6 +25,10 @@ class FilmTranslation extends Model
         ];
     }
 
+    protected $touches = [
+        'film'
+    ];
+
     public function film(): BelongsTo
     {
         return $this->belongsTo(Film::class);

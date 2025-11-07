@@ -28,9 +28,16 @@ class FilmVersion extends Model
     {
         return [
             'master_type' => MasterTypes::class,
-            'cut_code' => CutCodes::class
+            'cut_code' => CutCodes::class,
+            'is_primary' => 'boolean',
+            'duration_minutes' => 'integer',
+            'vimeo_password' => 'encrypted:string'
         ];
     }
+
+    protected $touches = [
+        'film'
+    ];
 
     public function film(): BelongsTo
     {

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\FilmStatus;
+use App\Enums\{FilmLanguages, FilmStatus};
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Film extends Model
 {
@@ -27,8 +28,30 @@ class Film extends Model
     {
         return [
             'status' => FilmStatus::class,
-            'primary_language' => 'enum'
+            'primary_language' => FilmLanguages::class,
+            'average_rating' => 'decimal:1',
+            'year' => 'integer',
+            'duration_minutes' => 'integer',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Film $film) {
+            if (empty($film->slug) || $film->isDirty('title')) {
+                $film->slug = Str::slug($film->title);
+            }
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    public function primaryVersion(): ?FilmVersion
+    {
+        return $this->versions()->where('is_primary', true)->first();
     }
 
     public function translations(): HasMany
