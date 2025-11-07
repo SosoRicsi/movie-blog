@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PeopleType;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('avatar_path');
+            $table->string('avatar_path')->default('https://placehold.co/100x100?text=User');
             $table->enum('locale', ['hu', 'en'])->default('en');
 
             $table->rememberToken();
@@ -35,15 +36,17 @@ return new class extends Migration
 
             $table->string('full_name');
             $table->string('email');
-            $table->string('website');
-            $table->string('instagram');
+            $table->string('website')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('phone')->nullable();
             $table->string('city')->nullable();
             $table->string('slug')->unique();
             $table->string('bio_short');
             $table->text('bio');
             $table->date('birth_date');
-            $table->enum('type', ['actor', 'crew', 'influencer', 'other'])->default('other');
+            $table->enum('type', PeopleType::cases())->default(PeopleType::OTHER);
+
+            $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete(); /* Csak ha a type = crew -> akkor kötelezően van neki fiókja is */
 
             $table->timestamps();
             $table->softDeletes();

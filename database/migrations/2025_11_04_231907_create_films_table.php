@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('poster_path', 2048)->nullable();
             $table->string('cover_path', 2048); /* The cover is a must-have */
 
-            /* TODO: extract this to it's own Enum class */
             $table->enum('primary_language', ['hu', 'en'])->default('hu');
 
             $table->index(['title', 'year', 'status']);
@@ -40,8 +39,7 @@ return new class extends Migration
 
             $table->foreignIdFor(Film::class)->constrained()->cascadeOnDelete();
 
-            /* TODO: extract this to it's own Enum class */
-            $table->enum('locale', FilmLanguages::cases())->default('hu');
+            $table->enum('locale', FilmLanguages::cases())->default(FilmLanguages::HUNGARIAN);
             $table->string('title', 180);
 
             $table->string('logline', 280)->nullable();
@@ -61,7 +59,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('duration_minutes');
             $table->boolean('is_primary')->default(false);
             $table->enum('master_type', MasterTypes::cases());
-            $table->enum('cut_code', CutCodes::cases())->default('other');
+            $table->enum('cut_code', CutCodes::cases())->default(CutCodes::OTHER);
 
             $table->string('vimeo_private_link', 2048)->nullable();
             $table->string('vimeo_password', 100)->nullable();
