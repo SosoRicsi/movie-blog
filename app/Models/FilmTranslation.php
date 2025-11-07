@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\Enums\FilmLanguages;
+use App\Enums\FilmLanguages;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
