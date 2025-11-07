@@ -7,6 +7,7 @@ import ProjectCard from '@/components/ProjectCard.vue'
 import BlogCard from '@/components/BlogCard.vue'
 import Button from '@/components/Button.vue'
 import { usePage } from '@inertiajs/vue3'
+import JumpText from '@/components/JumpText.vue'
 
 const props = defineProps<{
     projects: Project[];
@@ -28,7 +29,7 @@ const page = usePage<SharedData>();
 
             <div class="relative z-10 container mx-auto px-6 text-center">
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight text-balance"
-                    data-aos="zoom-in">
+                    >
                     Történeteket mesélünk,<br />mozgóképen keresztül
                 </h1>
                 <p class="text-lg md:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto text-pretty">
@@ -46,7 +47,7 @@ const page = usePage<SharedData>();
         </section>
 
         <!-- Projects -->
-        <section id="projektek" class="py-12 bg-white min-h-screen flex items-center" data-aos="zoom-in">
+        <section id="projektek" class="py-12 bg-white min-h-screen flex items-center">
             <div class="container mx-auto px-6">
                 <div class="mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold text-black mb-4 tracking-tight"> Készülő filmjeink </h2>
@@ -72,9 +73,10 @@ const page = usePage<SharedData>();
                         </h2>
                         <p class="text-lg text-neutral-300 mb-6 leading-relaxed text-pretty">
                             A
-                            <span class="text-blue-400 inline-block animate-tilt">
+                            <JumpText :text="page.props.name" class="text-blue-400" :amplitude-em="0.15" />
+                            <!-- <span class="text-blue-400 inline-block animate-tilt">
                                 {{ page.props.name }}
-                            </span>
+                            </span> -->
                             egy szenvedélyes csapat, amely hisz abban, hogy minden történet
                             megérdemli a legjobb vizuális megjelenítést...
                         </p>
