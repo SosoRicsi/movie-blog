@@ -4,25 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    /* id: number;
-    title: string;
-    excerpt: string;
-    date: string;
-    category: {
-        id: number;
-        title: string;
-    };
-    image: Image;
-    read_time: number;
-    created_at: string;
-    updated_at: string;
-    user: {
-        id: number;
-        name: string;
-        email: string;
-        created_at: string;
-        avatar?: string;
-    }; */
     return Inertia::render('Welcome', [
         'projects' => [
             [

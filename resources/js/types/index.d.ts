@@ -1,5 +1,6 @@
 import type { PageProps } from '@inertiajs/core';
 import type { LucideIcon } from 'lucide-vue-next';
+import { routeType } from './routes';
 
 export interface Auth {
     user: User;
@@ -27,6 +28,7 @@ export interface SharedData extends PageProps {
     quote: { message: string; author: string };
     auth: Auth;
     sidebarOpen: boolean;
+    routes: Record<string, routeType>;
 }
 
 export interface User {

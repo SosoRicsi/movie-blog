@@ -1,9 +1,10 @@
 import {usePage, router} from "@inertiajs/vue3";
 import { routeType } from "@/types/routes";
+import { SharedData } from "@/types";
 
 export function useRoutes() {
-    const {props} = usePage();
-    const routes: Record<string, routeType> = props.routes;
+    const page = usePage<SharedData>();
+    const routes: Record<string, routeType> = page.props.routes;
 
     function route(name: string, params: Record<string, any> = {}): string {
         const r: routeType = routes[name];

@@ -10,7 +10,7 @@ defineProps<{
     status?: string;
 }>();
 
-const { routes } = useRoutes();
+const { route } = useRoutes();
 
 const form = useForm({});
 

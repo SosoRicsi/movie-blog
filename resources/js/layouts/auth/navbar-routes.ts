@@ -7,7 +7,7 @@ export const navbarRoutes = [
         items: [
             {
                 title: 'Dashboard',
-                href: route('dashboard'),
+                href: 'dashboard',
                 icon: LayoutGrid,
             },
             {

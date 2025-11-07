@@ -8,11 +8,14 @@ import BlogCard from '@/components/BlogCard.vue'
 import Button from '@/components/Button.vue'
 import { usePage } from '@inertiajs/vue3'
 import JumpText from '@/components/JumpText.vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
     projects: Project[];
     blog_posts: BlogPost[];
 }>();
+
+const { t } = useI18n();
 
 const page = usePage<SharedData>();
 </script>
@@ -24,16 +27,15 @@ const page = usePage<SharedData>();
             <div class="absolute inset-0">
                 <img src="https://placehold.co/1920x1080" alt="Hero background"
                     class="w-full h-full object-cover opacity-40" />
-                <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-black/1 via-black/10 to-black"></div>
             </div>
 
             <div class="relative z-10 container mx-auto px-6 text-center">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight text-balance"
-                    >
-                    Történeteket mesélünk,<br />mozgóképen keresztül
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight text-balance">
+                    {{ page.props.name }}
                 </h1>
                 <p class="text-lg md:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto text-pretty">
-                    Kreatív filmstúdió, amely a vizuális mesélés művészetét ötvözi a legmodernebb technológiával
+                    {{ t('brand.slogan') }}
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button :tilt="true" arrow="right">Projektek megtekintése</Button>

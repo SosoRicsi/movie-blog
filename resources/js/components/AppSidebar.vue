@@ -12,7 +12,7 @@ const { route } = useRoutes();
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar collapsible="icon" variant="floating">
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>

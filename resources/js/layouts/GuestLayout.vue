@@ -16,11 +16,14 @@ const title = computed(() => props.title ?? page.props.name)
 <template>
     <Head :title />
     <div class="min-h-screen bg-neutral-50 [--header:64px]">
-        <header class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-white/10">
+        <header class="fixed top-0 left-0 right-0 z-50 bg-black/75 backdrop-blur-sm border-b border-white/10">
             <nav class="container mx-auto px-6 py-4">
                 <div class="flex items-center justify-between">
-                    <div class="text-white text-2xl font-bold tracking-tight">
-                        {{ page.props.name }}
+                    <div class="flex my-auto items-center space-x-3">
+                        <img src="/favicon.ico" class="w-[50px] h-[50px] bg-white/75 rounded-[100%]" />
+                        <div class="text-white text-2xl font-bold tracking-tight">
+                            {{ page.props.name }}
+                        </div>
                     </div>
 
                     <div class="hidden md:flex items-center gap-8">

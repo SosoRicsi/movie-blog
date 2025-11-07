@@ -79,8 +79,7 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
 
-                    <!-- <div v-if="mustVerifyEmail && !user.email_verified_at"> -->
-                    <div v-if="true">
+                    <div v-if="mustVerifyEmail && !user.email_verified_at">
                         <p class="-mt-4 text-sm text-muted-foreground">
                             {{ t('settings.profile.credentials.email.verify.label') }}
                             <Link

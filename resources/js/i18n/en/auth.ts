@@ -1,5 +1,3 @@
-import Label from "@/components/ui/label/Label.vue";
-
 export default {
     login: {
         title: "Log in",
