@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\{FilmLanguages, FilmStatus};
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -49,11 +50,6 @@ class Film extends Model
         return 'slug';
     }
 
-    public function primaryVersion(): ?FilmVersion
-    {
-        return $this->versions()->where('is_primary', true)->first();
-    }
-
     public function translations(): HasMany
     {
         return $this->hasMany(FilmTranslation::class);
@@ -62,6 +58,11 @@ class Film extends Model
     public function versions(): HasMany
     {
         return $this->hasMany(FilmVersion::class);
+    }
+
+    public function primaryVersion(): BelongsTo
+    {
+        return $this->belongsTo(FilmVersion::class, 'primary_version_id');
     }
 
 }
