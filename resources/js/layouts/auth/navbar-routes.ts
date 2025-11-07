@@ -1,5 +1,5 @@
 import { NavbarGroup } from "@/types";
-import { Disc3, GalleryHorizontal, LayoutGrid } from "lucide-vue-next";
+import { Clapperboard, Disc3, GalleryHorizontal, LayoutGrid } from "lucide-vue-next";
 
 export const navbarRoutes = [
     {
@@ -16,6 +16,16 @@ export const navbarRoutes = [
                 icon: GalleryHorizontal
             }
         ],
+    },
+    {
+        groupLabel: "Filmek",
+        items: [
+            {
+                title: 'Létrehozás',
+                href: '',
+                icon: Clapperboard
+            }
+        ]
     }
 ] as NavbarGroup[];
 
