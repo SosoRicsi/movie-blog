@@ -10,6 +10,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
 ];
+
+defineProps<{
+    films_count: number;
+}>();
 </script>
 
 <template>
@@ -17,16 +21,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
+            <div class="flex flex-wrap justify-between gap-4 md:grid-cols-3">
+                <div class="border-1 border-gray-200 p-3 rounded-lg w-xs">
+                    <span class="font-bold underline">Készülő filmek:</span> {{ films_count }}
                 </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
+                <div class="border-1 border-gray-200 p-3 rounded-lg w-xs">a</div>
+                <div class="border-1 border-gray-200 p-3 rounded-lg w-xs">a</div>
+                <div class="border-1 border-gray-200 p-3 rounded-lg w-xs">a</div>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min">
                 <PlaceholderPattern />

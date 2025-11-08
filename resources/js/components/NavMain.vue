@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { navbarRoutes } from '@/layouts/auth/navbar-routes';
-import { useRoutes } from '@/lib/routes';
 import { type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 
 const items = navbarRoutes;
-
-const { route } = useRoutes();
 
 const page = usePage<SharedData>();
 </script>
@@ -21,7 +18,7 @@ const page = usePage<SharedData>();
                     as-child :is-active="item.href === page.url"
                     :tooltip="item.title"
                 >
-                    <Link :href="route(item.href)">
+                    <Link :href="item.href">
                         <component :is="item.icon" />
                         <span>{{ item.title }}</span>
                     </Link>

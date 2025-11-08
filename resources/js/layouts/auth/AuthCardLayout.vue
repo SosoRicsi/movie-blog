@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useRoutes } from '@/lib/routes';
 import { Link } from '@inertiajs/vue3';
+import { route } from '@/lib/routes';
 
 defineProps<{
     title?: string;
     description?: string;
 }>();
-
-const { route } = useRoutes();
 
 </script>
 

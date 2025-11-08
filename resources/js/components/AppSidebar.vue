@@ -5,9 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { Link } from '@inertiajs/vue3';
 import AppLogo from './AppLogo.vue';
-import { useRoutes } from '@/lib/routes';
-
-const { route } = useRoutes();
+import { route } from '@/lib/routes';
 
 </script>
 

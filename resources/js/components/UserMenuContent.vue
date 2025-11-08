@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import UserInfo from '@/components/UserInfo.vue';
 import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { useRoutes } from '@/lib/routes';
 import type { User } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { LogOut, Settings } from 'lucide-vue-next';
+import { route } from '@/lib/routes';
 
 interface Props {
     user: User;
 }
-
-const { route } = useRoutes();
 
 defineProps<Props>();
 </script>

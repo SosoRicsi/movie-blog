@@ -1,5 +1,6 @@
 import { NavbarGroup } from "@/types";
 import { Clapperboard, Disc3, GalleryHorizontal, LayoutGrid } from "lucide-vue-next";
+import { route, has } from "@/lib/routes";
 
 export const navbarRoutes = [
     {
@@ -7,7 +8,7 @@ export const navbarRoutes = [
         items: [
             {
                 title: 'Dashboard',
-                href: 'dashboard',
+                href: route('dashboard'),
                 icon: LayoutGrid,
             },
             {
@@ -17,16 +18,16 @@ export const navbarRoutes = [
             }
         ],
     },
-    {
+    ...(has('films.create') ? [{
         groupLabel: "Filmek",
         items: [
             {
                 title: 'Létrehozás',
-                href: '',
+                href: route('films.create'),
                 icon: Clapperboard
             }
         ]
-    }
+    }] : []),
 ] as NavbarGroup[];
 
 export const navfooterRoutes = [
