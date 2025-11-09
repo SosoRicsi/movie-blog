@@ -5,14 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
-import { useRoutes } from '@/lib/routes';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 import { useI18n } from 'vue-i18n';
+import { route } from '@/lib/routes';
 
 const { t } = useI18n();
-
-const { route } = useRoutes();
 
 const form = useForm({
     name: '',

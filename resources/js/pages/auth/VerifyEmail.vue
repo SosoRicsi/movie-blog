@@ -2,15 +2,13 @@
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
 import AuthLayout from '@/layouts/AuthLayout.vue';
-import { useRoutes } from '@/lib/routes';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import { route } from '@/lib/routes';
 
 defineProps<{
     status?: string;
 }>();
-
-const { route } = useRoutes();
 
 const form = useForm({});
 

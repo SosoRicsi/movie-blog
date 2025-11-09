@@ -12,11 +12,9 @@ import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
 import { useI18n } from 'vue-i18n';
 import settings from '@/i18n/hu/auth/settings';
-import { useRoutes } from '@/lib/routes';
+import { route } from '@/lib/routes';
 
 const { t } = useI18n();
-
-const { route } = useRoutes();
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {

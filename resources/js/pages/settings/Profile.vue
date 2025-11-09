@@ -11,9 +11,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type BreadcrumbItem, type SharedData, type User } from '@/types';
 import { useI18n } from 'vue-i18n';
-import { useRoutes } from '@/lib/routes';
-
-const { route } = useRoutes();
+import { route } from '@/lib/routes';
 
 const { t } = useI18n();
 
