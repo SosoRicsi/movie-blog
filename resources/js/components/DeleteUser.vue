@@ -19,9 +19,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useI18n } from 'vue-i18n';
-import { useRoutes } from '@/lib/routes';
-
-const { route } = useRoutes();
+import { route } from '@/lib/routes';
 
 const { t } = useI18n();
 
