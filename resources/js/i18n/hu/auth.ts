@@ -5,7 +5,7 @@ export default {
         credentials: {
             email: {
                 label: "Email address",
-                placeholder: "email@example.com"
+                placeholder: "email{'@'}example.com"
             },
             password: {
                 label: "Jelszó",
@@ -25,7 +25,7 @@ export default {
         credentials: {
             email: {
                 label: "E-mail cím",
-                placeholder: "pelda@valami.hu"
+                placeholder: "pelda{'@'}valami.hu"
             },
         },
         submit_button: "Visszaállító link küldése",
@@ -44,7 +44,7 @@ export default {
             },
             email: {
                 label: "E-mail cím",
-                placeholder: "pelda@valami.hu"
+                placeholder: "pelda{'@'}valami.hu"
             },
             password: {
                 label: "Jelszó",

@@ -48,7 +48,7 @@ class MailUserController extends Controller
             'email' => $data['local_part'].'@'.$domain->name,
         ]);
 
-        $request->session()->flash('success', 'mail_user.created_successfully');
+        $request->session()->flash('success', 'mails.created_successfully');
 
         return Inertia::location(route('dashboard'));
     }
@@ -82,7 +82,7 @@ class MailUserController extends Controller
 
         $user->notify(new MailUserUpdateNotification($user->updated_at));
 
-        $request->session()->flash('success', 'mail_user.updated_successfully');
+        $request->session()->flash('success', 'mails.updated_successfully');
 
         return Inertia::location(route('dashboard'));
     }
