@@ -17,6 +17,9 @@ class RolesSeeder extends Seeder
             'films.create', 'films.view', 'films.update', 'films.delete',
             'film_versions.create', 'film_versions.view', 'film_versions.update', 'film_versions.delete',
             'film_translations.create', 'film_translations.view', 'film_translations.update', 'film_translations.delete',
+            'mail_domain.create', 'mail_domain.view', 'mail_domain.update', 'mail_domain.delete',
+            'mail_user.create', 'mail_user.view', 'mail_user.update', 'mail_user.delete',
+            'mail_alias.create', 'mail_alias.view', 'mail_alias.update', 'mail_alias.delete',
         ];
 
         foreach ($perms as $perm) {

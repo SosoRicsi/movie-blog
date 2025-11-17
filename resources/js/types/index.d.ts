@@ -29,6 +29,10 @@ export interface SharedData extends PageProps {
     auth: Auth;
     sidebarOpen: boolean;
     routes: Record<string, routeType>;
+    flash: {
+        error: string | null;
+        success: string | null;
+    }
 }
 
 export interface User {

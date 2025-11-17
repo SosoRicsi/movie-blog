@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { SharedData, type BreadcrumbItem } from '@/types';
+import { Head, usePage } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -14,6 +14,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 defineProps<{
     films_count: number;
 }>();
+
+const page = usePage<SharedData>();
 </script>
 
 <template>
@@ -21,6 +23,10 @@ defineProps<{
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div class="bg-gray-50 p-3 rounded-lg" v-if="page.props.flash.error || page.props.flash.success">
+                {{ page.props.flash.error ? page.props.flash.error : null }}
+                {{ page.props.flash.success ? page.props.flash.success : null }}
+            </div>
             <div class="flex flex-wrap justify-between gap-4 md:grid-cols-3">
                 <div class="border-1 border-gray-200 p-3 rounded-lg w-xs">
                     <span class="font-bold underline">Készülő filmek:</span> {{ films_count }}

@@ -1,8 +1,9 @@
 <?php
 
 use App\Models\Film;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Mails\MailUserController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -137,17 +138,8 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard', [
         'films_count' => Film::all()->count(),
     ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::prefix('dashboard')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Dashboard', [
-            'films_count' => Film::all()->count(),
-        ]);
-    })->name('dashboard');
-
-    require __DIR__.'/dashboard.php';
-})->middleware(['auth', 'verified']);
+})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/settings.php';
+require __DIR__.'/dashboard.php';
 require __DIR__.'/auth.php';
