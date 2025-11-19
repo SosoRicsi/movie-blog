@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
+import { route } from '@/lib/routes';
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -15,14 +16,14 @@ const sidebarNavItems: NavItem[] = [
         href: '/settings/password',
     },
     {
-        title: 'Appearance',
-        href: '/settings/appearance',
-    },
+        title: 'Mail felhasználóim',
+        href: route('user.mail_users')
+    }
 ];
 
 const page = usePage();
 
-const currentPath = page.props.ziggy?.location ? new URL(page.props.ziggy.location).pathname : '';
+const currentPath = (page.props.app_url+page.url) ? new URL((page.props.app_url+page.url)).pathname : '';
 </script>
 
 <template>

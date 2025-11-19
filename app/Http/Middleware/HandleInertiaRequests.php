@@ -50,6 +50,7 @@ class HandleInertiaRequests extends Middleware
                 'error' => $request->session()->get('error'),
                 'success' => $request->session()->get('success'),
             ],
+            'app_url' => env('APP_URL', 'localhost')
         ];
     }
 }

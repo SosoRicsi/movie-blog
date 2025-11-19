@@ -32,7 +32,8 @@ export interface SharedData extends PageProps {
     flash: {
         error: string | null;
         success: string | null;
-    }
+    };
+    app_url: string;
 }
 
 export interface User {
