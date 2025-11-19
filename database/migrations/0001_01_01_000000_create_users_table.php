@@ -67,13 +67,6 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-
-        User::create([
-            'name' => "Test User",
-            'email' => "email@example.com",
-            'password' => Hash::make('Test123'),
-            'avatar_path' => "https://placeholder.co/50x50"
-        ]);
     }
 
     /**

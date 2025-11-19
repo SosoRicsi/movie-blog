@@ -16,6 +16,7 @@ class MailUser extends Model
         'local_part',
         'email',
         'password',
+        'user_id',
     ];
 
     protected $hidden = [
@@ -47,5 +48,10 @@ class MailUser extends Model
     public function domain(): BelongsTo
     {
         return $this->belongsTo(MailDomain::class, 'domain_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
