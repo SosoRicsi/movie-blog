@@ -20,7 +20,11 @@ import { route } from '@/lib/routes';
 import { MailUser } from '@/types/mails';
 
 const props = defineProps<{
-    mail_user: MailUser
+    mail_user: MailUser,
+    users: {
+        id: number;
+        name: string;
+    }[]
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -59,6 +63,22 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <Label class="text-base" for="password_confirmation">Jelszó</Label>
                     <Input id="password_confirmation" name="password_confirmation" type="password" placeholder="Jelszó" />
                     <div v-if="errors['password_confirmation']">{{ errors['password_confirmation'] }}</div>
+                </div>
+                <div class="my-5">
+                    <Label class="text-base" for="status">Csatolt felhasználó</Label>
+                    <Select name="user_id" :default-value="props.mail_user.user?.id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Válaszd ki, hogy melyik felhasználóé legyen ez a fiók. Ezt a lépést kihagyhatod." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem v-for="{ id, name } in users" :key="id" :value="id">
+                                    {{ name }}
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <div v-if="errors['user_id']">{{ errors['user_id'] }}</div>
                 </div>
                 <Button theme="dark-outline" type="submit" class="py-1.5!">Frissítés</Button>
             </Form>

@@ -31,6 +31,10 @@ class MailUser extends Model
                     return $value;
                 }
 
+                if (str_starts_with($value, '$2y$')) {
+                    return '{BLF-CRYPT}'.$value;
+                }
+
                 $hash = password_hash($value, PASSWORD_BCRYPT, [
                     'cost' => 5,
                 ]);

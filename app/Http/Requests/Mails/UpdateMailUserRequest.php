@@ -34,6 +34,10 @@ class UpdateMailUserRequest extends FormRequest
                 'min:8',
                 'confirmed'
             ],
+            'user_id' => [
+                'nullable',
+                'exists:users,id'
+            ]
         ];
     }
 }

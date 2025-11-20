@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Mails;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mails\StoreMailUserRequest;
 use App\Http\Requests\Mails\UpdateMailUserRequest;
+use App\Mail\MailUserUpdateNotification;
 use App\Models\MailDomain;
 use App\Models\MailUser;
-use App\Mail\MailUserUpdateNotification;
+use App\Models\User;
 use Inertia\Inertia;
 
 class MailUserController extends Controller
@@ -29,6 +30,7 @@ class MailUserController extends Controller
     {
         return Inertia::render('dashboard/mails/CreateUser', [
             'domains' => MailDomain::select(['id', 'name'])->get(),
+            'users' => User::select(['id', 'name'])->get(),
         ]);
     }
 
@@ -41,11 +43,16 @@ class MailUserController extends Controller
 
         $domain = MailDomain::find($data['domain_id']);
 
+        if ($data['user_id'] != null) {
+            $user = User::find($data['user_id']);
+        }
+
         $mail_user = MailUser::query()->create([
             'local_part' => $data['local_part'],
             'domain_id' => $data['domain_id'],
-            'password' => $data['password'],
+            'password' => $data['user_id'] ? $user->password : $data['password'],
             'email' => $data['local_part'].'@'.$domain->name,
+            'user_id' => $data['user_id'] ? $user->id : null,
         ]);
 
         $request->session()->flash('success', 'mails.created_successfully');
@@ -59,7 +66,10 @@ class MailUserController extends Controller
     public function edit(MailUser $user)
     {
         return Inertia::render('dashboard/mails/EditUser', [
-            'mail_user' => MailUser::with('domain')->select(['local_part', 'domain_id', 'id'])->find($user)->first(),
+            'mail_user' => MailUser::with(['domain:id,name', 'user:id,name'])
+                ->select(['local_part', 'domain_id', 'id', 'user_id'])
+                ->find($user->id),
+            'users' => User::select(['id', 'name'])->get(),
         ]);
     }
 
@@ -70,14 +80,17 @@ class MailUserController extends Controller
     {
         $data = $request->validated();
 
+        $web_user = User::findOrFail($data['user_id']);
+
         $user->loadMissing('domain');
 
-        if (! empty($data['password'])) {
-            $user['password'] = $data['password'];
-        }
+        $user['password'] = $web_user->password;
 
         $user->local_part = $data['local_part'];
-        $user->email = $data['local_part'] . "@" . $user['domain']['name'];
+        $user->email = $data['local_part'].'@'.$user->domain->name;
+
+        $user->user_id = $web_user->id;
+
         $user->save();
 
         $user->notify(new MailUserUpdateNotification($user->updated_at));

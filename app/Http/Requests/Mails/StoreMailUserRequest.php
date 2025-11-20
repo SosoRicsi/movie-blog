@@ -37,6 +37,10 @@ class StoreMailUserRequest extends FormRequest
                 'string',
                 'min:8',
             ],
+            'user_id' => [
+                'nullable',
+                'exists:users,id'
+            ]
         ];
     }
 }

@@ -37,6 +37,10 @@ const props = defineProps<{
     domains: {
         id: number;
         name: string;
+    }[];
+    users: {
+        id: number;
+        name: string;
     }[]
 }>();
 
@@ -51,12 +55,12 @@ const props = defineProps<{
             <Form method="post" :action="route('mails.users.store')" #default="{ errors }">
                 <div class="my-5">
                     <Label class="text-base" for="local_part">Email</Label>
-                    <Input id="local_part" name="local_part" type="text" placeholder="Email" />
+                    <Input id="local_part" name="local_part" type="text" placeholder="Email" required />
                     <div v-if="errors['local_part']">{{ errors['local_part'] }}</div>
                 </div>
                 <div class="my-5">
                     <Label class="text-base" for="password">Jelszó</Label>
-                    <Input id="password" name="password" type="password" placeholder="Jelszó" />
+                    <Input id="password" name="password" type="password" placeholder="Jelszó" required />
                     <div v-if="errors['password']">{{ errors['password'] }}</div>
                 </div>
                 <div class="my-5">
@@ -73,9 +77,25 @@ const props = defineProps<{
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    <div v-if="errors['domain']">{{ errors['domain'] }}</div>
+                    <div v-if="errors['domain_id']">{{ errors['domain_id'] }}</div>
                 </div>
-                <Button theme="dark-outline" type="submit" class="py-1!">Feltöltés</Button>
+                <div class="my-5">
+                    <Label class="text-base" for="status">Csatolt felhasználó</Label>
+                    <Select name="user_id">
+                        <SelectTrigger class="w-full">
+                            <SelectValue placeholder="Válaszd ki, hogy melyik felhasználóé legyen ez a fiók. Ezt a lépést kihagyhatod." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem v-for="{ id, name } in users" :value="id">
+                                    {{ name }}
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <div v-if="errors['user_id']">{{ errors['user_id'] }}</div>
+                </div>
+                <Button theme="dark-outline" type="submit" class="py-1!">Létrehozás</Button>
             </Form>
         </div>
     </AppLayout>

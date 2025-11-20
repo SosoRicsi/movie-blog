@@ -6,4 +6,8 @@ export interface MailUser {
         id: number;
         name: string;
     };
+    user: {
+        id: number;
+        name: string;
+    } | null;
 };
