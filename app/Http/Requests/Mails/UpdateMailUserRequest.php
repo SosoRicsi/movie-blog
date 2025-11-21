@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Mails;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateMailUserRequest extends FormRequest
 {
@@ -29,13 +30,14 @@ class UpdateMailUserRequest extends FormRequest
                 'regex:/^[a-z0-9._+-]+$/i',
             ],
             'password' => [
+                Rule::requiredIf(fn ($input) => !$input->same_as_users),
                 'nullable',
                 'string',
                 'min:8',
                 'confirmed'
             ],
             'user_id' => [
-                'nullable',
+                'required',
                 'exists:users,id'
             ]
         ];

@@ -10,4 +10,5 @@ export interface MailUser {
         id: number;
         name: string;
     } | null;
+    sync_with_user_password: boolean;
 };

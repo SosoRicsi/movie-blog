@@ -17,6 +17,8 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { route } from '@/lib/routes';
+import Checkbox from '@/components/ui/checkbox/Checkbox.vue';
+import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -44,6 +46,7 @@ const props = defineProps<{
     }[]
 }>();
 
+const same_as_users = ref<boolean>(true);
 </script>
 
 <template>
@@ -60,8 +63,17 @@ const props = defineProps<{
                 </div>
                 <div class="my-5">
                     <Label class="text-base" for="password">Jelszó</Label>
-                    <Input id="password" name="password" type="password" placeholder="Jelszó" required />
+                    <div class="flex space-x-2 my-2">
+                        <Checkbox id="same_as_users" v-model="same_as_users" name="same_as_users" value="1" />
+                        <Label for="same_as_users">Egyenlő a csatolt felhasználó jelszavával.</Label>
+                    </div>
+                    <Input v-if="!same_as_users" id="password" name="password" type="password" placeholder="Jelszó" required />
                     <div v-if="errors['password']">{{ errors['password'] }}</div>
+                </div>
+                <div class="my-5" v-if="!same_as_users">
+                    <Label class="text-base" for="password_confirmation">Jelszó újra</Label>
+                    <Input id="password_confirmation" name="password_confirmation" type="password" placeholder="Jelszó újra" />
+                    <div v-if="errors['password_confirmation']">{{ errors['password_confirmation'] }}</div>
                 </div>
                 <div class="my-5">
                     <Label class="text-base" for="status">Domain cím</Label>

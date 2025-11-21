@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 /* Route::resource('film', FilmController::class); */
 Route::middleware('auth')->group(function () {
-    Route::prefix('/film')->name('films')->group(function () {
+    Route::prefix('/film')->name('films.')->group(function () {
         Route::get('/create', [FilmController::class, 'create'])
             ->name('create')
             ->middleware('can:film.create');

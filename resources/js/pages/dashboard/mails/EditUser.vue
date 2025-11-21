@@ -18,6 +18,8 @@ import {
 } from '@/components/ui/select'
 import { route } from '@/lib/routes';
 import { MailUser } from '@/types/mails';
+import { ref } from 'vue';
+import Checkbox from '@/components/ui/checkbox/Checkbox.vue';
 
 const props = defineProps<{
     mail_user: MailUser,
@@ -41,6 +43,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('mails.users.edit', {user: props.mail_user.id})
     }
 ];
+
+const same_as_users = ref<boolean>(props.mail_user.sync_with_user_password);
 </script>
 
 <template>
@@ -56,17 +60,21 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
                 <div class="my-5">
                     <Label class="text-base" for="password">Jelszó</Label>
-                    <Input id="password" name="password" type="password" placeholder="Jelszó" />
+                    <div class="flex space-x-2 my-2">
+                        <Checkbox id="same_as_users" v-model="same_as_users" name="same_as_users" value="1" />
+                        <Label for="same_as_users">Egyenlő a csatolt felhasználó jelszavával.</Label>
+                    </div>
+                    <Input v-if="!same_as_users" id="password" name="password" type="password" placeholder="Jelszó" />
                     <div v-if="errors['password']">{{ errors['password'] }}</div>
                 </div>
-                <div class="my-5">
+                <div class="my-5" v-if="!same_as_users">
                     <Label class="text-base" for="password_confirmation">Jelszó</Label>
                     <Input id="password_confirmation" name="password_confirmation" type="password" placeholder="Jelszó" />
                     <div v-if="errors['password_confirmation']">{{ errors['password_confirmation'] }}</div>
                 </div>
                 <div class="my-5">
                     <Label class="text-base" for="status">Csatolt felhasználó</Label>
-                    <Select name="user_id" :default-value="props.mail_user.user?.id">
+                    <Select name="user_id" :default-value="props.mail_user.user?.id" required>
                         <SelectTrigger class="w-full">
                             <SelectValue placeholder="Válaszd ki, hogy melyik felhasználóé legyen ez a fiók. Ezt a lépést kihagyhatod." />
                         </SelectTrigger>

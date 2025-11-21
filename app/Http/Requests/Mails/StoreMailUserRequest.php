@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Mails;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreMailUserRequest extends FormRequest
 {
@@ -33,14 +34,19 @@ class StoreMailUserRequest extends FormRequest
                 'regex:/^[a-z0-9._+-]+$/i',
             ],
             'password' => [
-                'required',
+                Rule::requiredIf(fn ($input) => ! $input->same_as_users),
+                'nullable',
                 'string',
                 'min:8',
+                'confirmed',
             ],
             'user_id' => [
-                'nullable',
-                'exists:users,id'
-            ]
+                'required',
+                'exists:users,id',
+            ],
+            'same_as_users' => [
+                'boolean',
+            ],
         ];
     }
 }

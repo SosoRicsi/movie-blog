@@ -50,9 +50,10 @@ class MailUserController extends Controller
         $mail_user = MailUser::query()->create([
             'local_part' => $data['local_part'],
             'domain_id' => $data['domain_id'],
-            'password' => $data['user_id'] ? $user->password : $data['password'],
+            'password' => $data['same_as_users'] ? $user->password : $data['password'],
             'email' => $data['local_part'].'@'.$domain->name,
             'user_id' => $data['user_id'] ? $user->id : null,
+            'sync_with_user_password' => (bool)$data->same_as_users
         ]);
 
         $request->session()->flash('success', 'mails.created_successfully');
@@ -67,7 +68,7 @@ class MailUserController extends Controller
     {
         return Inertia::render('dashboard/mails/EditUser', [
             'mail_user' => MailUser::with(['domain:id,name', 'user:id,name'])
-                ->select(['local_part', 'domain_id', 'id', 'user_id'])
+                ->select(['local_part', 'domain_id', 'id', 'user_id', 'sync_with_user_password'])
                 ->find($user->id),
             'users' => User::select(['id', 'name'])->get(),
         ]);
@@ -79,24 +80,29 @@ class MailUserController extends Controller
     public function update(UpdateMailUserRequest $request, MailUser $user)
     {
         $data = $request->validated();
-
         $web_user = User::findOrFail($data['user_id']);
-
         $user->loadMissing('domain');
 
-        $user['password'] = $web_user->password;
+        if ($data['same_as_users']) {
+            $user['password'] = $web_user->password;
+        } else {
+            $user['password'] = $data['password'];
+            $user->sync_with_user_password = false; //default true
+        }
 
-        $user->local_part = $data['local_part'];
-        $user->email = $data['local_part'].'@'.$user->domain->name;
+        if ($user->local_part != $data['local_part']) {
+            $user->local_part = $data['local_part'];
+            $user->email = $data['local_part'] . "@" . $user->domain->name;
+        }
 
-        $user->user_id = $web_user->id;
+        if ($user->user_id != $web_user->id) {
+            $user->user_id = $web_user->id;
+        }
 
         $user->save();
-
-        $user->notify(new MailUserUpdateNotification($user->updated_at));
+        $web_user->notify(new MailUserUpdateNotification($user->updated_at));
 
         $request->session()->flash('success', 'mails.updated_successfully');
-
         return Inertia::location(route('dashboard'));
     }
 

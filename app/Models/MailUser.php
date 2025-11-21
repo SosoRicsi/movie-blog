@@ -17,7 +17,15 @@ class MailUser extends Model
         'email',
         'password',
         'user_id',
+        'sync_with_user_password',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'sync_with_user_password' => "boolean"
+        ];
+    }
 
     protected $hidden = [
         'password',
