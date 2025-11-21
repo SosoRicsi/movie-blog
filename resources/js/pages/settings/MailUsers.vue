@@ -23,6 +23,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { MailUser } from '@/types/mails';
+import { Check, CheckCheck, CheckCircle, CheckCircle2, CheckIcon, CheckSquare, PlusCircle, XIcon } from "lucide-vue-next";
 
 const { t } = useI18n();
 
@@ -64,6 +65,7 @@ const user = page.props.auth.user as User;
                                 Név
                             </TableHead>
                             <TableHead>Teljes email</TableHead>
+                            <TableHead>Fiók jelszavát használja</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -72,6 +74,7 @@ const user = page.props.auth.user as User;
                                 {{ mail_user.local_part }}
                             </TableCell>
                             <TableCell>{{ mail_user.local_part + "@" + mail_user.domain.name }}</TableCell>
+                            <TableCell><CheckIcon v-if="mail_user.sync_with_user_password" /> <XIcon v-else /></TableCell>
                         </TableRow>
                     </TableBody>
 

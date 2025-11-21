@@ -30,16 +30,19 @@ class UpdateMailUserRequest extends FormRequest
                 'regex:/^[a-z0-9._+-]+$/i',
             ],
             'password' => [
-                Rule::requiredIf(fn ($input) => !$input->same_as_users),
+                Rule::requiredIf(fn () => ! $this->same_as_users),
                 'nullable',
                 'string',
                 'min:8',
-                'confirmed'
+                'confirmed',
             ],
             'user_id' => [
                 'required',
-                'exists:users,id'
-            ]
+                'exists:users,id',
+            ],
+            'same_as_users' => [
+                'boolean',
+            ],
         ];
     }
 }

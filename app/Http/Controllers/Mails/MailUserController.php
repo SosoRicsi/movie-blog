@@ -47,13 +47,21 @@ class MailUserController extends Controller
             $user = User::find($data['user_id']);
         }
 
+        if (isset($data['same_as_users']) && $data['same_as_users']) {
+            $password = $user->password;
+            $same_as_users = true;
+        } else {
+            $password = $data['password'];
+            $same_as_users = false;
+        }
+
         $mail_user = MailUser::query()->create([
             'local_part' => $data['local_part'],
             'domain_id' => $data['domain_id'],
-            'password' => $data['same_as_users'] ? $user->password : $data['password'],
+            'password' => $password,
             'email' => $data['local_part'].'@'.$domain->name,
             'user_id' => $data['user_id'] ? $user->id : null,
-            'sync_with_user_password' => (bool)$data->same_as_users
+            'sync_with_user_password' => (bool)$same_as_users
         ]);
 
         $request->session()->flash('success', 'mails.created_successfully');
@@ -83,7 +91,7 @@ class MailUserController extends Controller
         $web_user = User::findOrFail($data['user_id']);
         $user->loadMissing('domain');
 
-        if ($data['same_as_users']) {
+        if (isset($data['same_as_users']) && $data['same_as_users']) {
             $user['password'] = $web_user->password;
         } else {
             $user['password'] = $data['password'];
@@ -100,7 +108,7 @@ class MailUserController extends Controller
         }
 
         $user->save();
-        $web_user->notify(new MailUserUpdateNotification($user->updated_at));
+        $user->notify(new MailUserUpdateNotification($user->updated_at));
 
         $request->session()->flash('success', 'mails.updated_successfully');
         return Inertia::location(route('dashboard'));
